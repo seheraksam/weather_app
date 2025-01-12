@@ -47,6 +47,10 @@
         const weatherIcon=document.querySelector(".weather-icon");
         async function checkWeather(city) {
             const response = await fetch(apiUrl + "&q="+ city);
+            if (response.status!=200) {
+                document.querySelector(".error").style.display="block"
+                document.querySelector(".weather").style.display="none"
+            }
             var data = await response.json();
             document.querySelector(".city").innerHTML = data.name
             document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + " °C "
@@ -66,7 +70,9 @@
             }if(data.weather[0].src=="Mist"){
                 weatherIcon.src="images/mist.png"
             }
+           if (response.status==200) {
             document.querySelector(".weather").style.display="block";
+           }
         }
         searchButton.addEventListener("click", () => {
             checkWeather(searchBox.value);
