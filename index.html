@@ -21,14 +21,14 @@
                 <div class="col">
                     <img src="images/humidity.png" alt="">
                     <div>
-                        <p class="humadity">%50</p>
+                        <p class="humadity"></p>
                         <p>Humidity</p>
                     </div>
                 </div>
                 <div class="col">
                     <img src="images/wind.png" alt="">
                     <div>
-                        <p class="Wind">15 km/h</p>
+                        <p class="Wind"></p>
                         <p>Wind Speed</p>
                     </div>
                 </div>
@@ -36,7 +36,18 @@
         </div>
     </div>
     <script>
-
+        const apiKey = "3178c46fd07fb950bd0f223addc73fa5"
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid=3178c46fd07fb950bd0f223addc73fa5"
+        async function checkWeather() {
+            const response = await fetch(apiUrl + "&q=izmir");
+            var data = await response.json();
+            document.querySelector(".city").innerHTML = data.name
+            document.querySelector(".temp").innerHTML = Math.round(data.main.temp)+" °C "
+            document.querySelector(".humadity").innerHTML = data.main.humidity+" %"
+            document.querySelector(".Wind").innerHTML = data.wind.speed+" km/h"
+            console.log(data);
+        }
+        checkWeather();
     </script>
 </body>
 
